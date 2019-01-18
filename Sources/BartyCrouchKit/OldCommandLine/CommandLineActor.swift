@@ -311,9 +311,11 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
+            let isDevelopmentLanguage = outputStringsFilePath.contains("en.lproj")
+
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedStringsFilePath,
-                addNewValuesAsEmpty: !defaultToBase,
+                addNewValuesAsEmpty: !(defaultToBase && isDevelopmentLanguage),
                 override: override,
                 keepWhitespaceSurroundings: unstripped,
                 ignoreEmptyStrings: ignoreEmptyStrings
