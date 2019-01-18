@@ -262,10 +262,12 @@ public class CommandLineActor {
                 print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
                 exit(EX_CONFIG)
             }
+			
+            let isDevelopmentLanguage = outputStringsFilePath.contains("en.lproj")
 
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedLocalizableStringsFilePath,
-                addNewValuesAsEmpty: !defaultToKeys,
+                addNewValuesAsEmpty: !(defaultToKeys && isDevelopmentLanguage),
                 override: override,
                 keepExistingKeys: additive,
                 overrideComments: overrideComments,
